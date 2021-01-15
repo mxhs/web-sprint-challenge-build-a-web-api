@@ -8,6 +8,7 @@ module.exports = router;
 const {
 	validateActionId,
 	validateNewAction,
+	validateProjectId,
 } = require("../middleware/middleware");
 
 router.get("/", async (req, res, next) => {
@@ -30,16 +31,21 @@ router.get("/:id", validateActionId, (req, res) => {
 	// 	});
 });
 
-// ? ?? How Can I check to see if an project already exists or not? ??
+// ! ?? How Can I check to see if an project already exists or not? ??
 
-router.post("/", validateNewAction, async (req, res, next) => {
-	try {
-		const data = await Actions.insert(req.body);
-		res.status(200).json(data);
-	} catch (err) {
-		next(err);
+router.post(
+	"/",
+	validateProjectId,
+	validateNewAction,
+	async (req, res, next) => {
+		try {
+			const data = await Actions.insert(req.body);
+			res.status(200).json(data);
+		} catch (err) {
+			next(err);
+		}
 	}
-});
+);
 
 router.put("/:id", validateActionId, (req, res) => {
 	Actions.update(req.params.id, req.body)

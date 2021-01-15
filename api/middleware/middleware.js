@@ -7,6 +7,7 @@ module.exports = {
 	validateActionId,
 	validateNewAction,
 	validateProjectId,
+	validateNewProject,
 };
 
 function logger(req, res, next) {
@@ -56,5 +57,14 @@ async function validateProjectId(req, res, next) {
 		}
 	} catch (error) {
 		res.status(500).json("Whats a better message to put here?");
+	}
+}
+
+function validateNewProject(req, res, next) {
+	const { name, description } = req.body;
+	if ((name, description)) {
+		next();
+	} else {
+		res.status(400).json({ error: `Please Provide a name and description` });
 	}
 }
