@@ -40,3 +40,14 @@ router.post("/", validateNewAction, async (req, res, next) => {
 		next(err);
 	}
 });
+
+router.put("/:id", validateActionId, (req, res) => {
+	Actions.update(req.params.id, req.body)
+		.then((action) => {
+			res.status(200).json(action);
+		})
+		.catch((error) => {
+			console.log(error);
+			res.status(500).json({ error: "Could not update the action" });
+		});
+});
