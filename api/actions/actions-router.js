@@ -51,3 +51,11 @@ router.put("/:id", validateActionId, (req, res) => {
 			res.status(500).json({ error: "Could not update the action" });
 		});
 });
+
+router.delete("/:id", validateActionId, (req, res) => {
+	Actions.remove(req.params.id).then(() => {
+		res
+			.status(200)
+			.json({ message: `Action with id ${req.params.id} has been removed` });
+	});
+});
