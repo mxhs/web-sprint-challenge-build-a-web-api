@@ -28,4 +28,13 @@ async function validateActionId(req, res, next) {
 	}
 }
 
-function validateNewAction(req, res, next) {}
+function validateNewAction(req, res, next) {
+	const { project_id, description, notes } = req.body;
+	if ((project_id, description, notes)) {
+		next();
+	} else {
+		res
+			.status(400)
+			.json({ error: `Please Provide A Project ID, Description, and Notes` });
+	}
+}
